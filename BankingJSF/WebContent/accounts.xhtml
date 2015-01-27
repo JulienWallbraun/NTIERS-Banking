@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:body>
+	<ui:composition template="/template.xhtml">
+			<ui:define name="content">
+			
+			<h3 align="center">All Accounts</h3>
+		<h:form id="form">
+				<p:panel id="pan" header="Current Account" style="margin-top:20px">
+					<table>
+						<tr>
+							<td><p:outputLabel value="Numero de compte :" /></td>
+							<td><p:inputText value="#{compteWeb.currentAccount.accountNumber}" /></td>
+							 
+							<td rowspan="6">
+							    <p:panel header="Actions Possible">
+							    <h:panelGrid columns="2" cellpadding="5">
+									<p:commandButton value="suivant" action="#{compteWeb.next}"
+										update="form"  />
+										<p:commandButton value="Precedent"/>
+									<p:commandButton value="Modifier"/>
+									</h:panelGrid>
+								</p:panel>
+							</td> 
+						</tr>
+						<tr>
+							<td><p:outputLabel value="Propriétaire :" /></td>
+							<td><p:inputText value="#{compteWeb.currentAccount.owner}" /></td>
+						</tr>
+						<tr>
+							<td><p:outputLabel value="Solde :" /></td>
+							<td><p:inputText value="#{compteWeb.currentAccount.balance}" /></td>
+						</tr>
+						<tr>
+							<td><p:outputLabel value="Taux d'interet:" /></td>
+							<td><p:inputText value="#{compteWeb.currentAccount.interestRate}" /></td>
+						</tr>
+						<tr>
+							<td><p:outputLabel value="Découvert autorisé:" /></td>
+							<td><p:inputText value="#{compteWeb.currentAccount.overdraftPenalty}" /></td>
+						</tr>
+						<tr>
+							<td><p:outputLabel value="Limite de découvert : " /></td>
+							<td><p:inputText value="#{compteWeb.currentAccount.overdraftLimit}" /></td>
+						</tr>
+					</table>
+				</p:panel>
+				<br />
+				<p:dataTable id="data" value="#{compteWeb.allAccounts}" var="account" border="1"
+					cellpadding="2" cellspacing="0">
+					<p:column>
+						<f:facet name="header">
+						</f:facet>
+                             #{compteWeb.isCurrentAccount(account)?">>":""}
+                    </p:column>
+
+					<p:column>
+						<f:facet name="header">Account ID</f:facet>
+						<h:link id="edit_account" value="#{account.id}" outcome="accounts">
+							<f:param name="id" value="#{account.id}" />
+						</h:link>
+					</p:column>
+
+					<p:column footerClass="">
+						<f:facet name="header">Account Number</f:facet>
+                             #{account.accountNumber}
+                    </p:column>
+					<p:column>
+						<f:facet name="header">Propriétaire</f:facet>
+                            #{account.owner.name}
+                    </p:column>
+					<p:column>
+						<f:facet name="header">Solde </f:facet>
+                            #{account.balance}
+                    </p:column>
+                    <p:column>
+						<f:facet name="header">Taux d'interet </f:facet>
+                            #{account.interestRate}
+                    </p:column>
+                    <p:column>
+						<f:facet name="header">Découvert Autorisé</f:facet>
+                            #{account.overdraftPenalty}
+                    </p:column>
+                    <p:column>
+						<f:facet name="header">Limite de découvert</f:facet>
+                            #{account.overdraftLimit}
+                    </p:column>
+					<!-- <p:column>
+						<f:facet name="header">Take action</f:facet>
+						<p:link id="view_custs" value="clients" outcome="customers">
+							<f:param name="id" value="#{bank.id}" />
+						</p:link>
+					</p:column> -->
+				</p:dataTable>
+			</h:form>		
+			
+			
+			</ui:define>			
+	</ui:composition>
+</h:body>
+</html>

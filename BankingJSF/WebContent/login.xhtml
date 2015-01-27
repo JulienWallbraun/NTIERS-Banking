@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+
+
+
+<h:head>
+
+</h:head>
+<h:body>
+	<ui:composition template="/loginTemplate.xhtml">
+		<ui:define name="content">
+			
+
+			<h:form>
+			<p:growl id="growl" showDetail="true" life="6000" />   
+				<p:panel id="panel" header="Connexion" widgetVar="dlg">
+
+					<p:messages id="msgs" />
+
+					<h:panelGrid columns="3" cellpadding="5">
+						<p:outputLabel for="login" value="Login/Nom:" />
+						<p:inputText id="login" value="#{login.firstname}" required="true"
+							label="Login/Nom">
+							<f:validateLength minimum="2" />
+						</p:inputText>
+						<p:message for="login" display="icon" />
+
+						<p:outputLabel for="password" value="Mot de passe:" />
+						<p:password id="password" value="#{login.password}"
+							label="Mot de passe" required="true">
+							<f:validateLength minimum="2" />
+							<p:ajax update="msgpswd" event="keyup" />
+						</p:password>
+						<p:message for="password" id="msgpswd" display="icon" />
+
+					</h:panelGrid>
+
+					<p:commandButton value="Se connecter" update="panel"
+						actionListener="#{login.connect}"
+						icon="ui-icon-check"  />
+				</p:panel>
+				</h:form>
+
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

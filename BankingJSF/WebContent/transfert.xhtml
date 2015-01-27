@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+<h:body>
+	<ui:composition template="/template.xhtml">
+
+		<ui:define name="content">
+			<h3>
+				Welcome M.
+				<h:outputText value="#{customerWeb.currentCustomer.name}" />
+			</h3>
+
+			<h:form id="form">
+			<p:growl  id="messages" showDetail="true" life="6000" />
+			
+				<p:panel id="panel" header="Transfert">
+					<table>
+						<tr>
+						<td>	<p:outputLabel value="Selectionnez le compte débiteur   : " /></td>
+						<td>	<p:selectOneMenu id="mesComptes" binding="#{numCpte1}"
+								value="#{transfert.numCpte1}" required="true">
+								<f:selectItems
+									value="#{transfert.getAccounts(customerWeb.currentCustomer.name)}" />
+							</p:selectOneMenu></td>
+						</tr>
+						<tr>
+							<td><p:outputLabel
+									value="Selectionner le compte créditeur   : " /></td>
+							<td><p:selectOneMenu id="autresComptes" editable="false"
+									binding="#{numCpte2}" value="#{transfert.numCpte2}" required="true">
+									<f:selectItems value="#{transfert.allAccounts}" />
+								</p:selectOneMenu></td>
+						</tr>
+						<tr>
+							<td><p:outputLabel value="Libele" /></td>
+							<td><p:inputText id="libele" value="#{transfert.libele}"
+									required="true" /></td>
+
+						</tr>
+						<tr>
+							<td><p:outputLabel value="Entrez le montant :  " /></td>
+							<td><p:inputText id="amount" value="#{transfert.montant}"
+									required="true" /></td>
+
+						</tr>
+						<tr>
+							<td><p:commandButton id="tranferer" value="Soumettre"
+									action="#{transfert.envoie(numCpte1.value, numCpte2.value)}" update="messages" /></td>
+						<td><p:commandButton value="Initialiser" process="@this" actionListener="#{transfert.reset}" update="panel"/> </td>
+						</tr>
+					</table>
+				</p:panel>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+
+

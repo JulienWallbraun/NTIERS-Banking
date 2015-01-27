@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<ui:insert name="metadata" />
+<h:head>
+	<title><ui:insert name="title">Banking</ui:insert></title>
+	<h:outputStylesheet library="style" name="main.css" />
+</h:head>
+<body>
+
+	<h1 align="center">
+		<p:outputLabel value="Bank Application" />
+	</h1>
+	<h:form>
+	<p:growl id="mess" showDetail="true" life="6000" />
+		<p:menubar>
+
+			<f:facet name="options">
+
+				<p:inputText style="margin-right:10px" placeholder="Search" />
+				<p:commandButton value="Logout" icon="ui-icon-extlink"
+					actionListener="#{login.deconnect}"  update="mess"/>
+			</f:facet>
+		</p:menubar>
+
+
+	</h:form>
+	<table border="0">
+		<tr>
+			<td width="20%"><ui:insert name="menu">
+
+					<h:form>
+						<p:growl id="messages" showDetail="false" />
+						<p:menu>
+							<p:submenu label="Banks">
+								<p:menuitem value="All Banks" outcome="banks" />
+								<p:menuitem value="Add Bank" />
+								<p:menuitem value="Edit Bank" action="#{bankWeb.modify}" />
+								<p:menuitem value="Delete Bank" action="#" />
+							</p:submenu>
+						</p:menu>
+						<br />
+						<p:menu>
+							<p:submenu label="Customers">
+								<p:menuitem value="All Customers" outcome="customers" />
+								<p:menuitem value="Add Customer" />
+								<p:menuitem value="Edit Customer" action="#{customerWeb.modify}" />
+								<p:menuitem value="Delete Customer" action="#" />
+							</p:submenu>
+						</p:menu>
+						<br />
+						<p:menu>
+							<p:submenu label="Accounts">
+								<p:menuitem value="All Accounts" outcome="accounts" />
+								<p:menuitem value="Add Account" />
+								<p:menuitem value="Edit Account" action="#" />
+								<p:menuitem value="Delete Account" action="#" />
+
+							</p:submenu>
+						</p:menu>
+
+					</h:form>
+
+				</ui:insert></td>
+
+			<td width="65%" style="margin-left: 10px; margin-right: 10px"><ui:insert
+					name="content" /></td>
+
+			<td><h:form>
+					<p:menu style="margin-left:30px">
+						<p:submenu label="Opérations">
+							<p:menuitem value="Make Transfert" outcome="transfert" />
+							<p:menuitem value="Credit/Withdraw Account"
+								outcome="depotRetrait" />
+						</p:submenu>
+					</p:menu>
+				</h:form></td>
+		</tr>
+	</table>
+</body>
+</html>
